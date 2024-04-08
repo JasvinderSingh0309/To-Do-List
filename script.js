@@ -14,6 +14,7 @@ function disable() {
     clearCbtn.disabled = true;
     filterSelect.disabled = true;
     featureBtn.style.opacity = 0.2;
+    clearCbtn.style.opacity=1;
   }else{
     clearallbtn.disabled = false;
     
@@ -66,9 +67,6 @@ function deleteToDo(e) {
     if(e.target.parentNode === lis[i]) {
       ul.removeChild(document.querySelector(`li:nth-child(${i+1})`));
       allToDo.splice(i,1);
-
-      // console.log(allToDo);
-
       break;
     }
   }
@@ -101,30 +99,8 @@ function addToDo() {
   uncheck.addEventListener("click", () => {doneToDo(uncheck, li,toDo,delBtn)});
 
   delBtn.addEventListener("click", deleteToDo);
+
   allToDo.push(li);
-
-  //===============================================
-  // console.log(li.innerHTML);
-  // console.log(li.tagName);
-  // console.log(li.classList[0]);
-
-  // console.log(allToDo);
-  // let strTodo = JSON.stringify(allToDo);
-  // console.log(strTodo);
-  // console.log(JSON.parse(strTodo)[0] === allToDo[0]);
-
-  let arrObj = allToDo.map(e => {
-    return {
-      ele:e,
-    }
-  });
-  // console.log(arrObj);
-
-  let string = arrObj.map(e => e.ele);
-
-  console.log(string[0] === li);
-
-  //===================================================
   disable();
 }
 
@@ -158,10 +134,6 @@ enterToDo.addEventListener("keydown", (e) => {
 clearallbtn.addEventListener("click", () => {
   ul.innerHTML = "";
   allToDo.length = 0;
-
-  // console.log(allToDo);
-
-  clearCbtn.style.opacity=1;
   disable();
 })
 
@@ -172,10 +144,8 @@ clearCbtn.addEventListener("click",() => {
       pendingToDo.push(allToDo[i]);
     }
   }
+
   allToDo = pendingToDo;
-
-  // console.log(allToDo);
-
   ul.innerHTML = "";
   for(let i=0;i<allToDo.length;i++) {
     ul.append(allToDo[i]);
@@ -183,9 +153,10 @@ clearCbtn.addEventListener("click",() => {
   disable();
 })
 
+// console.log(filterSelect.textContent);
+// console.log(filterSelect.value);
+// // console.log(filterSelect.textContent);
+// // console.log(filterSelect.textContent);
+
 // filter option 
-// use local storage
 // edit task
-
-
-// added console log to see the array.
