@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" href="https://play-lh.googleusercontent.com/KzL9UbzA2EC-5g3kT3TnIbUyX8V8vlwlepa8epzgURl5ONyCaRvlI3o9Ybtw4Y7PubX4">
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <title>To-Do App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="container">
+    <img src="https://lh6.ggpht.com/aiY9J8YK8Lzr7hMC7nZWlZGiBn8TF_PY7NVNy5U1i5g4zG8yEPzEZTJK2WwbWJUogg" alt="to-do icon">
+
+    <div class="enter-to-do">
+      <input type="text" placeholder="Type to-do...">
+      <button>Add</button>
+    </div>
+
+    <div class="moreFeature">
+      <button class="clearAll" >Clear all</button>
+      <button class="clearC">Clear completed</button>
+      <select class="filter">
+        <option value="" selected disabled style="color:rgba(0, 0, 0, 0.447)">Filter</option>
+        <option>Completed</option>
+        <option>Pending</option>
+        <option>All</option>
+      </select>
+    </div>
+
+    <ul class="displayToDos"></ul>
+  </header>
+</body>
+</html>

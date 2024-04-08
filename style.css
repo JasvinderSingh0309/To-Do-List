@@ -1,0 +1,136 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  min-height:100vh;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-bottom: 50px;
+}
+
+.container{
+  max-width: 450px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+.container>img{
+  width:150px;
+}
+.container .enter-to-do{
+  height:60px;
+  display: flex;
+  align-items: center;
+  margin-top: -35px;
+}
+.container .enter-to-do>input{
+  height:100%;
+  width:100%;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.087);
+  font:500 24px arial;
+  padding:0 20px;
+  margin-right: 10px;
+  color: black;
+}
+.container .enter-to-do>input::placeholder{
+  color: rgba(0, 0, 0, 0.299);
+}
+button,
+.moreFeature select{
+  font:700 20px arial;
+  padding: 10px 15px;
+  border: none;
+  background-color: rgba(223, 18, 18, 0.856);
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+button:hover{
+  opacity: 0.7;
+}
+.container .enter-to-do>button{
+  background-color:rgba(39, 39, 235, 0.904);
+}
+.container .moreFeature{
+  margin-top:10px;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  flex-wrap: wrap;
+  column-gap: 5px;
+  row-gap:2px;
+}
+.container .displayToDos{
+  list-style: none;
+  margin-top: 10px;
+}
+.container .moreFeature>button{
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.605);
+  margin-bottom: 2px;
+}
+
+.container .displayToDos .to-do{
+  padding: 5px 5px 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.39);
+}
+.container .displayToDos .to-do>div{
+  display: flex;
+  align-items: center;
+}
+.container .displayToDos .to-do>div>span {
+  font: 500 22px arial;
+  margin-left: 6px;
+}
+.container .displayToDos .to-do>div>i {
+  font-size: 18px;
+}
+.moreFeature select{
+  background-color: white;
+  color: rgba(0, 0, 0, 0.621);
+  border: solid 1px gray;
+  padding: 7px 10px;
+}
+.moreFeature select option{
+  color: black;
+}
+
+@media (max-width:450px) {
+  button,
+  .moreFeature select{
+    font-size:16px;
+    padding: 8px 13px;
+  }
+  .container .enter-to-do>input{
+    height:80%;
+    font-size:19px;
+    padding:0 17spx;
+    margin-right: 7px;
+  }
+  .container .moreFeature{
+    justify-content:start;
+  }
+  .moreFeature select{
+    padding: 8px 10px;
+  }
+  .container .displayToDos .to-do>div>span {
+    font-size:19px;
+  }
+  .container .displayToDos .to-do>div>i {
+    font-size: 15px;
+  }
+}
+
+
