@@ -153,10 +153,62 @@ clearCbtn.addEventListener("click",() => {
   disable();
 })
 
-// console.log(filterSelect.textContent);
-// console.log(filterSelect.value);
-// // console.log(filterSelect.textContent);
-// // console.log(filterSelect.textContent);
+filterSelect.addEventListener("change",() => {
+  let selected = filterSelect.value;
+  if(selected === "Completed") {
+    let completedToDo = [];
+    for(let i=0;i<allToDo.length;i++) {
+      if(allToDo[i].children[1].textContent === "completed") {
+        completedToDo.push(allToDo[i]);
+      }
+    }
+    console.log(completedToDo);
+    ul.innerHTML = "";
+    for(let i=0;i<completedToDo.length;i++) {
+      ul.append(completedToDo[i]);
+    }
+    clearallbtn.disabled = true;
+    clearCbtn.disabled = true;
+    clearCbtn.style.opacity = 0.2;
+    clearallbtn.style.opacity = 0.2;
+    addBtn.disabled = true;
+    enterToDo.disabled = true;
+  }else if(selected === "Pending") {
+    let completedToDo = [];
+    for(let i=0;i<allToDo.length;i++) {
+      if(allToDo[i].children[1].textContent === "delete") {
+        completedToDo.push(allToDo[i]);
+        allToDo[i].children[1].disabled = true;
+      }
+    }
+    console.log(completedToDo);
+    ul.innerHTML = "";
+    for(let i=0;i<completedToDo.length;i++) {
+      ul.append(completedToDo[i]);
+    }
+    clearallbtn.disabled = true;
+    clearCbtn.disabled = true;
+    clearCbtn.style.opacity = 0.2;
+    clearallbtn.style.opacity = 0.2;
+    addBtn.disabled = true;
+    enterToDo.disabled = true;
+  }else{
+    ul.innerHTML = "";
+    for(let i=0;i<allToDo.length;i++) {
+      ul.append(allToDo[i]);
+      if(allToDo[i].children[1].textContent === "delete") {
+        allToDo[i].children[1].disabled = false;
+      }
+    }
+    clearallbtn.style.opacity = 1;
+    addBtn.disabled = false;
+    enterToDo.disabled = false;
+    disable();
+  }
+})
+
+// console.log(filterSelect.options);// then can access through indexes
+// console.log(filterSelect.selectedIndex);
 
 // filter option 
 // edit task
