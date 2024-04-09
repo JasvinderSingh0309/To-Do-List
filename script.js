@@ -179,6 +179,7 @@ filterSelect.addEventListener("change",() => {
       if(allToDo[i].children[1].textContent === "delete") {
         completedToDo.push(allToDo[i]);
         allToDo[i].children[1].disabled = true;
+        allToDo[i].children[0].disabled = true;
       }
     }
     console.log(completedToDo);
@@ -198,6 +199,7 @@ filterSelect.addEventListener("change",() => {
       ul.append(allToDo[i]);
       if(allToDo[i].children[1].textContent === "delete") {
         allToDo[i].children[1].disabled = false;
+        allToDo[i].children[0].disabled = false;
       }
     }
     clearallbtn.style.opacity = 1;
@@ -207,8 +209,8 @@ filterSelect.addEventListener("change",() => {
   }
 })
 
-// console.log(filterSelect.options);// then can access through indexes
-// console.log(filterSelect.selectedIndex);
-
 // filter option 
 // edit task
+
+// disable checkbox for filters
+// write one function for filters
