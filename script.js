@@ -1,182 +1,197 @@
-let enterToDo = document.querySelector(".enter-to-do>input");
-let addBtn = document.querySelector(".enter-to-do>button");
-let ul = document.querySelector(".displayToDos");
-let clearallbtn = document.querySelector(".clearAll");
-let clearCbtn = document.querySelector(".clearC");
-let filterSelect = document.querySelector(".filter");
-let featureBtn = document.querySelector(".moreFeature");
+// let enterToDo = document.querySelector(".enter-to-do>input");
+// let addBtn = document.querySelector(".enter-to-do>button");
+// let ul = document.querySelector(".displayToDos");
+// let clearallbtn = document.querySelector(".clearAll");
+// let clearCbtn = document.querySelector(".clearC");
+// let filterSelect = document.querySelector(".filter");
+// let featureBtn = document.querySelector(".moreFeature");
 
-let allToDo = [];
+// let allToDo = [];
 
-function disable() {
-  if(ul.innerHTML === "") {
-    clearallbtn.disabled = true;
-    clearCbtn.disabled = true;
-    filterSelect.disabled = true;
-    featureBtn.style.opacity = 0.2;
-    clearCbtn.style.opacity=1;
-  }else{
-    clearallbtn.disabled = false;    
-    filterSelect.disabled = false;
-    featureBtn.style.opacity = 1;
+// function disable() {
+//   if(ul.innerHTML === "") {
+//     clearallbtn.disabled = true;
+//     clearCbtn.disabled = true;
+//     filterSelect.disabled = true;
+//     featureBtn.style.opacity = 0.2;
+//     clearCbtn.style.opacity=1;
+//   }else{
+//     clearallbtn.disabled = false;    
+//     filterSelect.disabled = false;
+//     featureBtn.style.opacity = 1;
   
-    let flag = false;
-    for(let i=0;i<allToDo.length;i++) {
-      if(allToDo[i].children[1].innerHTML === "completed") {
-        flag = true;
-        break;
-      }
-    }
-    if(flag) {
-      clearCbtn.disabled = false;
-      clearCbtn.style.opacity=1;
-    }else{
-      clearCbtn.style.opacity=0.2;
-    }
-  }
-}
-disable();
+//     let flag = false;
+//     for(let i=0;i<allToDo.length;i++) {
+//       if(allToDo[i].children[1].innerHTML === "completed") {
+//         flag = true;
+//         break;
+//       }
+//     }
+//     if(flag) {
+//       clearCbtn.disabled = false;
+//       clearCbtn.style.opacity=1;
+//     }else{
+//       clearCbtn.style.opacity=0.2;
+//     }
+//   }
+// }
+// disable();
 
-function doneToDo(ele, checked, todo, delbtn) {
-  if(ele.classList.contains("bx-circle")) {
-    ele.classList.remove("bx-circle");
-    ele.classList.add("bxs-check-circle");
-    checked.style.opacity = 0.3;
-    checked.style.pointerEvents = "none";
-    todo.style.textDecoration = "line-through";
-    delbtn.textContent = "completed";
-    disable();
-  }
-}
+// function doneToDo(ele, checked, todo, delbtn) {
+//   if(ele.classList.contains("bx-circle")) {
+//     ele.classList.remove("bx-circle");
+//     ele.classList.add("bxs-check-circle");
+//     checked.style.opacity = 0.3;
+//     checked.style.pointerEvents = "none";
+//     todo.style.textDecoration = "line-through";
+//     delbtn.textContent = "completed";
+//     disable();
+//   }
+// }
 
-function deleteToDo(e) {
-  let lis = document.querySelectorAll(".displayToDos>li");
-  for(let i=0;i<lis.length;i++) {
-    if(e.target.parentNode === lis[i]) {
-      ul.removeChild(document.querySelector(`li:nth-child(${i+1})`));
-      allToDo.splice(i,1);
-      break;
-    }
-  }
-  disable();
-}
+// function deleteToDo(e) {
+//   let lis = document.querySelectorAll(".displayToDos>li");
+//   for(let i=0;i<lis.length;i++) {
+//     if(e.target.parentNode === lis[i]) {
+//       ul.removeChild(document.querySelector(`li:nth-child(${i+1})`));
+//       allToDo.splice(i,1);
+//       break;
+//     }
+//   }
+//   disable();
+// }
 
-function addToDo() {
-  let uncheck = document.createElement("i");
-  uncheck.classList.add("bx","bx-circle");
+// function addToDo() {
+//   let uncheck = document.createElement("i");
+//   uncheck.classList.add("bx","bx-circle");
 
-  let toDo = document.createElement("span");
-  toDo.textContent = enterToDo.value;
+//   let toDo = document.createElement("span");
+//   toDo.textContent = enterToDo.value;
 
-  let contain = document.createElement("div");
+//   let contain = document.createElement("div");
 
-  contain.append(uncheck,toDo);
+//   contain.append(uncheck,toDo);
 
-  let delBtn = document.createElement("button");
-  delBtn.textContent = "delete";
+//   let delBtn = document.createElement("button");
+//   delBtn.textContent = "delete";
 
-  let li = document.createElement("li"); 
-  li.classList.add("to-do");
+//   let li = document.createElement("li"); 
+//   li.classList.add("to-do");
 
-  li.append(contain, delBtn);
-  ul.append(li);
+//   li.append(contain, delBtn);
+//   ul.append(li);
 
-  enterToDo.value = "";
+//   enterToDo.value = "";
 
-  // add events to newly added elements
-  uncheck.addEventListener("click", () => {doneToDo(uncheck, li,toDo,delBtn)});
-  delBtn.addEventListener("click", deleteToDo);
+//   // add events to newly added elements
+//   uncheck.addEventListener("click", () => {doneToDo(uncheck, li,toDo,delBtn)});
+//   delBtn.addEventListener("click", deleteToDo);
 
-  allToDo.push(li);
-  disable();
-}
+//   allToDo.push(li);
+//   disable();
+// }
 
-function checkToDo() {
-  if(allToDo.length) {
-    let flag = false;
-    for(let i=0;i<allToDo.length;i++) {
-      if(allToDo[i].children[0].children[1].innerHTML.toLowerCase() === enterToDo.value.toLowerCase()) {
-        alert("Already exist in the list!!");
-        flag = true;
-        enterToDo.value = "";
-        break;
-      }
-    }
-    if(!flag) addToDo();
-  }else{
-    addToDo();
-  }
-}
+// function checkToDo() {
+//   if(allToDo.length) {
+//     let flag = false;
+//     for(let i=0;i<allToDo.length;i++) {
+//       if(allToDo[i].children[0].children[1].innerHTML.toLowerCase() === enterToDo.value.toLowerCase()) {
+//         alert("Already exist in the list!!");
+//         flag = true;
+//         enterToDo.value = "";
+//         break;
+//       }
+//     }
+//     if(!flag) addToDo();
+//   }else{
+//     addToDo();
+//   }
+// }
 
-function changeWithFilter(selected) {
-  let completedToDo = [];
-  for(let i=0;i<allToDo.length;i++) {
-    if(allToDo[i].children[1].textContent === selected) {
-      completedToDo.push(allToDo[i]);
-      allToDo[i].children[1].disabled = true;
-      allToDo[i].children[0].style.pointerEvents = "none";
-    }
-  }
-  ul.innerHTML = "";
-  for(let i=0;i<completedToDo.length;i++) {
-    ul.append(completedToDo[i]);
-  }
-  clearallbtn.disabled = true;
-  clearCbtn.disabled = true;
-  clearCbtn.style.opacity = 0.2;
-  clearallbtn.style.opacity = 0.2;
-  addBtn.disabled = true;
-  enterToDo.disabled = true;
-}
+// function changeWithFilter(selected) {
+//   let completedToDo = [];
+//   for(let i=0;i<allToDo.length;i++) {
+//     if(allToDo[i].children[1].textContent === selected) {
+//       completedToDo.push(allToDo[i]);
+//       allToDo[i].children[1].disabled = true;
+//       allToDo[i].children[0].style.pointerEvents = "none";
+//     }
+//   }
+//   ul.innerHTML = "";
+//   for(let i=0;i<completedToDo.length;i++) {
+//     ul.append(completedToDo[i]);
+//   }
+//   clearallbtn.disabled = true;
+//   clearCbtn.disabled = true;
+//   clearCbtn.style.opacity = 0.2;
+//   clearallbtn.style.opacity = 0.2;
+//   addBtn.disabled = true;
+//   enterToDo.disabled = true;
+// }
 
-addBtn.addEventListener("click", () => {
-  if(enterToDo.value) {
-    checkToDo();
-  }
+// addBtn.addEventListener("click", () => {
+//   if(enterToDo.value) {
+//     checkToDo();
+//   }
+// })
+// enterToDo.addEventListener("keydown", (e) => {
+//   if(e.key === "Enter" && enterToDo.value) {
+//     checkToDo();
+//   }
+// })
+// clearallbtn.addEventListener("click", () => {
+//   ul.innerHTML = "";
+//   allToDo.length = 0;
+//   disable();
+// })
+// clearCbtn.addEventListener("click",() => {
+//   let pendingToDo = [];
+//   for(let i=0;i<allToDo.length;i++) {
+//     if(allToDo[i].children[1].innerHTML === "delete") {
+//       pendingToDo.push(allToDo[i]);
+//     }
+//   }
+//   allToDo = pendingToDo;
+//   ul.innerHTML = "";
+//   for(let i=0;i<allToDo.length;i++) {
+//     ul.append(allToDo[i]);
+//   }
+//   disable();
+// })
+// filterSelect.addEventListener("change",() => {
+//   let selected = filterSelect.value;
+//   if(selected === "Completed") {
+//     changeWithFilter("completed");
+//   }else if(selected === "Pending") {
+//     changeWithFilter("delete");
+//   }else{
+//     ul.innerHTML = "";
+//     for(let i=0;i<allToDo.length;i++) {
+//       ul.append(allToDo[i]);
+//       if(allToDo[i].children[1].textContent === "delete") {
+//         allToDo[i].children[1].disabled = false;
+//         allToDo[i].children[0].style.pointerEvents = "";
+//       }
+//     }
+//     clearallbtn.style.opacity = 1;
+//     addBtn.disabled = false;
+//     enterToDo.disabled = false;
+//     disable();
+//   }
+// })
+// // edit task
+
+let edit = document.querySelector(".to-do>div:nth-child(2)>button:nth-child(1)");
+let todoEdit = document.querySelector(".to-do>div:nth-child(1)>span")
+console.log(todoEdit);
+console.log(edit);
+
+edit.addEventListener("click", () => {
+  let input = document.createElement("input");
+  input.type = "text";
+
+  todoEdit.textContent = "";
+  todoEdit.appendChild(input);
+  console.log(todoEdit);
+  console.log(input);
 })
-enterToDo.addEventListener("keydown", (e) => {
-  if(e.key === "Enter" && enterToDo.value) {
-    checkToDo();
-  }
-})
-clearallbtn.addEventListener("click", () => {
-  ul.innerHTML = "";
-  allToDo.length = 0;
-  disable();
-})
-clearCbtn.addEventListener("click",() => {
-  let pendingToDo = [];
-  for(let i=0;i<allToDo.length;i++) {
-    if(allToDo[i].children[1].innerHTML === "delete") {
-      pendingToDo.push(allToDo[i]);
-    }
-  }
-  allToDo = pendingToDo;
-  ul.innerHTML = "";
-  for(let i=0;i<allToDo.length;i++) {
-    ul.append(allToDo[i]);
-  }
-  disable();
-})
-filterSelect.addEventListener("change",() => {
-  let selected = filterSelect.value;
-  if(selected === "Completed") {
-    changeWithFilter("completed");
-  }else if(selected === "Pending") {
-    changeWithFilter("delete");
-  }else{
-    ul.innerHTML = "";
-    for(let i=0;i<allToDo.length;i++) {
-      ul.append(allToDo[i]);
-      if(allToDo[i].children[1].textContent === "delete") {
-        allToDo[i].children[1].disabled = false;
-        allToDo[i].children[0].style.pointerEvents = "";
-      }
-    }
-    clearallbtn.style.opacity = 1;
-    addBtn.disabled = false;
-    enterToDo.disabled = false;
-    disable();
-  }
-})
-// edit task
