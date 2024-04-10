@@ -16,11 +16,10 @@ function disable() {
     featureBtn.style.opacity = 0.2;
     clearCbtn.style.opacity=1;
   }else{
-    clearallbtn.disabled = false;
-    
+    clearallbtn.disabled = false;    
     filterSelect.disabled = false;
     featureBtn.style.opacity = 1;
-    
+  
     let flag = false;
     for(let i=0;i<allToDo.length;i++) {
       if(allToDo[i].children[1].innerHTML === "completed") {
@@ -36,7 +35,7 @@ function disable() {
     }
   }
 }
-disable(); // you may need to move it bellow the window load event.
+disable();
 
 function doneToDo(ele, checked, todo, delbtn) {
   if(ele.classList.contains("bx-circle")) {
@@ -52,17 +51,6 @@ function doneToDo(ele, checked, todo, delbtn) {
 
 function deleteToDo(e) {
   let lis = document.querySelectorAll(".displayToDos>li");
-
-  // let arr = [...lis];
-  // for(let i=0;i<arr.length;i++) {
-  //   if(e.target.parentNode === arr[i]) {
-  //     arr.splice(i,1);
-  //     break;
-  //   }
-  // }
-  // ul.innerHTML = "";
-  // arr.forEach( (e) => ul.append(e));
-
   for(let i=0;i<lis.length;i++) {
     if(e.target.parentNode === lis[i]) {
       ul.removeChild(document.querySelector(`li:nth-child(${i+1})`));
@@ -97,7 +85,6 @@ function addToDo() {
 
   // add events to newly added elements
   uncheck.addEventListener("click", () => {doneToDo(uncheck, li,toDo,delBtn)});
-
   delBtn.addEventListener("click", deleteToDo);
 
   allToDo.push(li);
@@ -121,38 +108,6 @@ function checkToDo() {
   }
 }
 
-addBtn.addEventListener("click", () => {
-  if(enterToDo.value) {
-    checkToDo();
-  }
-})
-enterToDo.addEventListener("keydown", (e) => {
-  if(e.key === "Enter" && enterToDo.value) {
-    checkToDo();
-  }
-})
-clearallbtn.addEventListener("click", () => {
-  ul.innerHTML = "";
-  allToDo.length = 0;
-  disable();
-})
-
-clearCbtn.addEventListener("click",() => {
-  let pendingToDo = [];
-  for(let i=0;i<allToDo.length;i++) {
-    if(allToDo[i].children[1].innerHTML === "delete") {
-      pendingToDo.push(allToDo[i]);
-    }
-  }
-
-  allToDo = pendingToDo;
-  ul.innerHTML = "";
-  for(let i=0;i<allToDo.length;i++) {
-    ul.append(allToDo[i]);
-  }
-  disable();
-})
-
 function changeWithFilter(selected) {
   let completedToDo = [];
   for(let i=0;i<allToDo.length;i++) {
@@ -174,6 +129,35 @@ function changeWithFilter(selected) {
   enterToDo.disabled = true;
 }
 
+addBtn.addEventListener("click", () => {
+  if(enterToDo.value) {
+    checkToDo();
+  }
+})
+enterToDo.addEventListener("keydown", (e) => {
+  if(e.key === "Enter" && enterToDo.value) {
+    checkToDo();
+  }
+})
+clearallbtn.addEventListener("click", () => {
+  ul.innerHTML = "";
+  allToDo.length = 0;
+  disable();
+})
+clearCbtn.addEventListener("click",() => {
+  let pendingToDo = [];
+  for(let i=0;i<allToDo.length;i++) {
+    if(allToDo[i].children[1].innerHTML === "delete") {
+      pendingToDo.push(allToDo[i]);
+    }
+  }
+  allToDo = pendingToDo;
+  ul.innerHTML = "";
+  for(let i=0;i<allToDo.length;i++) {
+    ul.append(allToDo[i]);
+  }
+  disable();
+})
 filterSelect.addEventListener("change",() => {
   let selected = filterSelect.value;
   if(selected === "Completed") {
@@ -195,5 +179,4 @@ filterSelect.addEventListener("change",() => {
     disable();
   }
 })
-
 // edit task
