@@ -153,46 +153,33 @@ clearCbtn.addEventListener("click",() => {
   disable();
 })
 
+function changeWithFilter(selected) {
+  let completedToDo = [];
+  for(let i=0;i<allToDo.length;i++) {
+    if(allToDo[i].children[1].textContent === selected) {
+      completedToDo.push(allToDo[i]);
+      allToDo[i].children[1].disabled = true;
+      allToDo[i].children[0].style.pointerEvents = "none";
+    }
+  }
+  ul.innerHTML = "";
+  for(let i=0;i<completedToDo.length;i++) {
+    ul.append(completedToDo[i]);
+  }
+  clearallbtn.disabled = true;
+  clearCbtn.disabled = true;
+  clearCbtn.style.opacity = 0.2;
+  clearallbtn.style.opacity = 0.2;
+  addBtn.disabled = true;
+  enterToDo.disabled = true;
+}
+
 filterSelect.addEventListener("change",() => {
   let selected = filterSelect.value;
   if(selected === "Completed") {
-    let completedToDo = [];
-    for(let i=0;i<allToDo.length;i++) {
-      if(allToDo[i].children[1].textContent === "completed") {
-        completedToDo.push(allToDo[i]);
-      }
-    }
-    console.log(completedToDo);
-    ul.innerHTML = "";
-    for(let i=0;i<completedToDo.length;i++) {
-      ul.append(completedToDo[i]);
-    }
-    clearallbtn.disabled = true;
-    clearCbtn.disabled = true;
-    clearCbtn.style.opacity = 0.2;
-    clearallbtn.style.opacity = 0.2;
-    addBtn.disabled = true;
-    enterToDo.disabled = true;
+    changeWithFilter("completed");
   }else if(selected === "Pending") {
-    let completedToDo = [];
-    for(let i=0;i<allToDo.length;i++) {
-      if(allToDo[i].children[1].textContent === "delete") {
-        completedToDo.push(allToDo[i]);
-        allToDo[i].children[1].disabled = true;
-        allToDo[i].children[0].style.pointerEvents = "none";
-      }
-    }
-    console.log(completedToDo);
-    ul.innerHTML = "";
-    for(let i=0;i<completedToDo.length;i++) {
-      ul.append(completedToDo[i]);
-    }
-    clearallbtn.disabled = true;
-    clearCbtn.disabled = true;
-    clearCbtn.style.opacity = 0.2;
-    clearallbtn.style.opacity = 0.2;
-    addBtn.disabled = true;
-    enterToDo.disabled = true;
+    changeWithFilter("delete");
   }else{
     ul.innerHTML = "";
     for(let i=0;i<allToDo.length;i++) {
@@ -209,7 +196,4 @@ filterSelect.addEventListener("change",() => {
   }
 })
 
-// filter option 
 // edit task
-
-// write one function for filters
