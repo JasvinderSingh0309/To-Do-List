@@ -181,17 +181,36 @@
 // })
 // // edit task
 
-let edit = document.querySelector(".to-do>div:nth-child(2)>button:nth-child(1)");
+let edit = document.querySelector(".to-do>div:nth-child(2)>.edit");
 let todoEdit = document.querySelector(".to-do>div:nth-child(1)>span")
-console.log(todoEdit);
-console.log(edit);
 
-edit.addEventListener("click", () => {
+function resetToDo({input, fun}) {
+  if(input !== "") {
+    todoEdit.innerHTML = input;
+    edit.textContent = "edit";
+    edit.removeEventListener("click",fun);
+    edit.addEventListener("click", handleEdit);
+  }
+}
+
+function handleEdit() {
+  edit.removeEventListener("click",handleEdit);
+
   let input = document.createElement("input");
   input.type = "text";
+  input.placeholder = todoEdit.textContent
 
   todoEdit.textContent = "";
   todoEdit.appendChild(input);
-  console.log(todoEdit);
-  console.log(input);
-})
+
+  edit.textContent = "save";
+  
+  let addInput = document.querySelector(".to-do>div:nth-child(1)>span>input");
+
+  function gettodo() {
+    resetToDo({input:addInput.value, fun:gettodo});
+  }
+  edit.addEventListener("click",gettodo);
+}
+
+edit.addEventListener("click",handleEdit);
