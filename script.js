@@ -22,7 +22,7 @@ function disable() {
   
     let flag = false;
     for(let i=0;i<allToDo.length;i++) {
-      if(allToDo[i].children[1].innerHTML === "completed") {
+      if(allToDo[i].children[1].children[1].innerHTML === "completed") {
         flag = true;
         break;
       }
@@ -37,7 +37,7 @@ function disable() {
 }
 disable();
 
-function doneToDo(ele, checked, todo, delbtn) {
+function doneToDo(ele, checked, todo, delbtn, editbtn) {
   if(ele.classList.contains("bx-circle")) {
     ele.classList.remove("bx-circle");
     ele.classList.add("bxs-check-circle");
@@ -45,6 +45,7 @@ function doneToDo(ele, checked, todo, delbtn) {
     checked.style.pointerEvents = "none";
     todo.style.textDecoration = "line-through";
     delbtn.textContent = "completed";
+    editbtn.style.display = "none";
     disable();
   }
 }
@@ -52,7 +53,7 @@ function doneToDo(ele, checked, todo, delbtn) {
 function deleteToDo(e) {
   let lis = document.querySelectorAll(".displayToDos>li");
   for(let i=0;i<lis.length;i++) {
-    if(e.target.parentNode === lis[i]) {
+    if(e.target.parentNode.parentNode === lis[i]) {
       ul.removeChild(document.querySelector(`li:nth-child(${i+1})`));
       allToDo.splice(i,1);
       break;
@@ -61,32 +62,36 @@ function deleteToDo(e) {
   disable();
 }
 
-function addToDo() { // change
+function addToDo() {
   let uncheck = document.createElement("i");
   uncheck.classList.add("bx","bx-circle");
-
   let toDo = document.createElement("span");
   toDo.textContent = enterToDo.value;
 
   let contain = document.createElement("div");
-
   contain.append(uncheck,toDo);
 
+  let editBtn = document.createElement("button");
+  editBtn.textContent = "edit";
+  editBtn.classList.add("edit");
   let delBtn = document.createElement("button");
   delBtn.textContent = "delete";
+
+  let containbtn = document.createElement("div");
+  containbtn.append(editBtn,delBtn);
 
   let li = document.createElement("li"); 
   li.classList.add("to-do");
 
-  li.append(contain, delBtn);
+  li.append(contain, containbtn);
   ul.append(li);
 
   enterToDo.value = "";
 
   // add events to newly added elements
-  uncheck.addEventListener("click", () => {doneToDo(uncheck, li,toDo,delBtn)});
+  uncheck.addEventListener("click", () => {doneToDo(uncheck, li,toDo,delBtn,editBtn)});
   delBtn.addEventListener("click", deleteToDo);
-
+  
   allToDo.push(li);
   disable();
 }
@@ -111,9 +116,10 @@ function checkToDo() {
 function changeWithFilter(selected) {
   let completedToDo = [];
   for(let i=0;i<allToDo.length;i++) {
-    if(allToDo[i].children[1].textContent === selected) {
+    if(allToDo[i].children[1].children[1].textContent === selected) {
       completedToDo.push(allToDo[i]);
-      allToDo[i].children[1].disabled = true; // disable both buttons.
+      allToDo[i].children[1].children[0].disabled = true;
+      allToDo[i].children[1].children[1].disabled = true; 
       allToDo[i].children[0].style.pointerEvents = "none";
     }
   }
@@ -147,7 +153,7 @@ clearallbtn.addEventListener("click", () => {
 clearCbtn.addEventListener("click",() => {
   let pendingToDo = [];
   for(let i=0;i<allToDo.length;i++) {
-    if(allToDo[i].children[1].innerHTML === "delete") {
+    if(allToDo[i].children[1].children[1].innerHTML === "delete") {
       pendingToDo.push(allToDo[i]);
     }
   }
@@ -168,8 +174,9 @@ filterSelect.addEventListener("change",() => {
     ul.innerHTML = "";
     for(let i=0;i<allToDo.length;i++) {
       ul.append(allToDo[i]);
-      if(allToDo[i].children[1].textContent === "delete") {
-        allToDo[i].children[1].disabled = false;// enable both buttons
+      if(allToDo[i].children[1].children[1].textContent === "delete") {
+        allToDo[i].children[1].children[0].disabled = false;
+        allToDo[i].children[1].children[1].disabled = false; 
         allToDo[i].children[0].style.pointerEvents = "";
       }
     }
