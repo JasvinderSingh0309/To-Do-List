@@ -91,7 +91,37 @@ function addToDo() {
   // add events to newly added elements
   uncheck.addEventListener("click", () => {doneToDo(uncheck, li,toDo,delBtn,editBtn)});
   delBtn.addEventListener("click", deleteToDo);
+
+  function resetToDo({input, fun}) {
+    if(input !== "") {
+      toDo.innerHTML = input;
+      editBtn.textContent = "edit";
+      editBtn.removeEventListener("click",fun);
+      editBtn.addEventListener("click", handleEdit);
+    }
+  }
+
+  function handleEdit(e) {
+    editBtn.removeEventListener("click",handleEdit);
   
+    let input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = toDo.textContent;
+  
+    toDo.textContent = "";
+    toDo.appendChild(input);
+  
+    editBtn.textContent = "save";
+    
+    let addInput = e.target.parentNode.parentNode.children[0].children[1].children[0];
+
+    function gettodo() {
+      resetToDo({input:addInput.value, fun:gettodo});
+    }
+    editBtn.addEventListener("click",gettodo);
+  }  
+  editBtn.addEventListener("click",handleEdit);
+
   allToDo.push(li);
   disable();
 }
@@ -187,39 +217,3 @@ filterSelect.addEventListener("change",() => {
   }
 })
 
-
-
-
-// let edit = document.querySelector(".to-do>div:nth-child(2)>.edit");
-// let todoEdit = document.querySelector(".to-do>div:nth-child(1)>span")
-
-// function resetToDo({input, fun}) {
-//   if(input !== "") {
-//     todoEdit.innerHTML = input;
-//     edit.textContent = "edit";
-//     edit.removeEventListener("click",fun);
-//     edit.addEventListener("click", handleEdit);
-//   }
-// }
-
-// function handleEdit() {
-//   edit.removeEventListener("click",handleEdit);
-
-//   let input = document.createElement("input");
-//   input.type = "text";
-//   input.placeholder = todoEdit.textContent
-
-//   todoEdit.textContent = "";
-//   todoEdit.appendChild(input);
-
-//   edit.textContent = "save";
-  
-//   let addInput = document.querySelector(".to-do>div:nth-child(1)>span>input");
-
-//   function gettodo() {
-//     resetToDo({input:addInput.value, fun:gettodo});
-//   }
-//   edit.addEventListener("click",gettodo);
-// }
-
-// edit.addEventListener("click",handleEdit);
