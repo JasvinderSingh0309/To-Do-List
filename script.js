@@ -42,10 +42,19 @@ function doneToDo(ele, checked, todo, delbtn, editbtn) {
     ele.classList.remove("bx-circle");
     ele.classList.add("bxs-check-circle");
     checked.style.opacity = 0.3;
-    checked.style.pointerEvents = "none";
     todo.style.textDecoration = "line-through";
     delbtn.textContent = "completed";
+    delbtn.style.pointerEvents = "none";
     editbtn.style.display = "none";
+    disable();
+  }else{
+    ele.classList.add("bx-circle");
+    ele.classList.remove("bxs-check-circle");
+    checked.style.opacity = 1;
+    todo.style.textDecoration = "none";
+    delbtn.textContent = "delete";
+    delbtn.style.pointerEvents = "";
+    editbtn.style.display = "block";
     disable();
   }
 }
@@ -106,7 +115,7 @@ function addToDo() {
   
     let input = document.createElement("input");
     input.type = "text";
-    input.placeholder = toDo.textContent;
+    input.value = toDo.textContent;
   
     toDo.textContent = "";
     toDo.appendChild(input);
@@ -207,6 +216,8 @@ filterSelect.addEventListener("change",() => {
       if(allToDo[i].children[1].children[1].textContent === "delete") {
         allToDo[i].children[1].children[0].disabled = false;
         allToDo[i].children[1].children[1].disabled = false; 
+        allToDo[i].children[0].style.pointerEvents = "";
+      }else{
         allToDo[i].children[0].style.pointerEvents = "";
       }
     }
