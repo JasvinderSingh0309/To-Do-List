@@ -71,6 +71,35 @@ function deleteToDo(e) {
   disable();
 }
 
+function resetToDo({input, fun, fun1, toDo, editBtn}) {
+  if(input !== "") {
+    toDo.innerHTML = input;
+    editBtn.textContent = "edit";
+    editBtn.removeEventListener("click",fun);
+    editBtn.addEventListener("click", fun1);
+  }
+}
+
+function handleInput({editBtn, fun, toDo}) {
+  editBtn.removeEventListener("click",fun);
+  
+  let input = document.createElement("input");
+  input.type = "text";
+  input.value = toDo.textContent;
+
+  toDo.textContent = "";
+  toDo.appendChild(input);
+
+  editBtn.textContent = "save";
+  
+  let addInput = editBtn.parentNode.parentNode.children[0].children[1].children[0];
+
+  function gettodo() {
+    resetToDo({input:addInput.value, fun:gettodo, fun1:fun, toDo:toDo , editBtn:editBtn});
+  }
+  editBtn.addEventListener("click",gettodo);
+}
+
 function addToDo() {
   let uncheck = document.createElement("i");
   uncheck.classList.add("bx","bx-circle");
@@ -101,33 +130,8 @@ function addToDo() {
   uncheck.addEventListener("click", () => {doneToDo(uncheck, li,toDo,delBtn,editBtn)});
   delBtn.addEventListener("click", deleteToDo);
 
-  function resetToDo({input, fun}) {
-    if(input !== "") {
-      toDo.innerHTML = input;
-      editBtn.textContent = "edit";
-      editBtn.removeEventListener("click",fun);
-      editBtn.addEventListener("click", handleEdit);
-    }
-  }
-
   function handleEdit(e) {
-    editBtn.removeEventListener("click",handleEdit);
-  
-    let input = document.createElement("input");
-    input.type = "text";
-    input.value = toDo.textContent;
-  
-    toDo.textContent = "";
-    toDo.appendChild(input);
-  
-    editBtn.textContent = "save";
-    
-    let addInput = e.target.parentNode.parentNode.children[0].children[1].children[0];
-
-    function gettodo() {
-      resetToDo({input:addInput.value, fun:gettodo});
-    }
-    editBtn.addEventListener("click",gettodo);
+    handleInput({editBtn:e.target, fun:handleEdit, toDo:toDo});
   }  
   editBtn.addEventListener("click",handleEdit);
 
