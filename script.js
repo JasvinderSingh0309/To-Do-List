@@ -213,13 +213,9 @@ filterSelect.addEventListener("change",() => {
     ul.innerHTML = "";
     for(let i=0;i<allToDo.length;i++) {
       ul.append(allToDo[i]);
-      if(allToDo[i].children[1].children[1].textContent === "delete") {
-        allToDo[i].children[1].children[0].disabled = false;
-        allToDo[i].children[1].children[1].disabled = false; 
-        allToDo[i].children[0].style.pointerEvents = "";
-      }else{
-        allToDo[i].children[0].style.pointerEvents = "";
-      }
+      allToDo[i].children[1].children[0].disabled = false;
+      allToDo[i].children[1].children[1].disabled = false; 
+      allToDo[i].children[0].style.pointerEvents = "";
     }
     clearallbtn.style.opacity = 1;
     addBtn.disabled = false;
